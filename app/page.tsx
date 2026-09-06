@@ -34,7 +34,11 @@ export default function Home() {
       })
       .catch((e) => {
         console.error(e);
-        if (!disposed) setError(true);
+        if (!disposed) {
+          world.current?.dispose();
+          world.current = null;
+          setError(true);
+        }
       });
     return () => {
       disposed = true;
@@ -184,11 +188,11 @@ export default function Home() {
         <i /> BEATING SPECIMEN
       </div>
       {!ready && (
-        <div className="loading" role="status">
+        <output className="loading" aria-live="polite">
           {error
             ? 'Unable to start the 3D scene. Please reload in a browser with graphics enabled.'
             : 'Warming the specimen…'}
-        </div>
+        </output>
       )}
       <aside className="controls" aria-label="Specimen controls">
         <div className="panel-head">
@@ -199,6 +203,7 @@ export default function Home() {
           {TINTS.map(([id, label]) => (
             <button
               key={id}
+              disabled={!ready}
               aria-pressed={color === id}
               className={`swatch ${id} ${color === id ? 'selected' : ''}`}
               onClick={() => {
@@ -213,12 +218,13 @@ export default function Home() {
         </div>
         <div className="setting">
           <div className="setting-label">
-            <label id="rate-label">Resting rate</label>
+            <span id="rate-label">Resting rate</span>
             <output>
               {rate} <small>bpm</small>
             </output>
           </div>
           <Slider
+            disabled={!ready}
             aria-labelledby="rate-label"
             min={40}
             max={160}
@@ -236,12 +242,13 @@ export default function Home() {
         </div>
         <div className="setting">
           <div className="setting-label">
-            <label id="contraction-label">Contraction</label>
+            <span id="contraction-label">Contraction</span>
             <output>
               {contraction} <small>%</small>
             </output>
           </div>
           <Slider
+            disabled={!ready}
             aria-labelledby="contraction-label"
             min={0}
             max={100}
@@ -259,12 +266,13 @@ export default function Home() {
         </div>
         <div className="setting">
           <div className="setting-label">
-            <label id="firmness-label">Myocardial stiffness</label>
+            <span id="firmness-label">Myocardial stiffness</span>
             <output>
               {(0.4 + firmness * 0.025).toFixed(2)} <small>kPa</small>
             </output>
           </div>
           <Slider
+            disabled={!ready}
             aria-labelledby="firmness-label"
             min={0}
             max={100}
@@ -282,12 +290,13 @@ export default function Home() {
         </div>
         <div className="setting">
           <div className="setting-label">
-            <label id="damping-label">Tissue damping</label>
+            <span id="damping-label">Tissue damping</span>
             <output>
               {(0.5 + damping * 0.055).toFixed(1)} <small>s⁻¹</small>
             </output>
           </div>
           <Slider
+            disabled={!ready}
             aria-labelledby="damping-label"
             min={0}
             max={100}
@@ -318,14 +327,14 @@ export default function Home() {
         <div className="spec">
           <div>
             {Math.round(liveBpm)} <small>bpm</small>
-            <label>MEASURED</label>
+            <span>MEASURED</span>
           </div>
           <div>
             343 <small>pts</small>
-            <label>LATTICE</label>
+            <span>LATTICE</span>
           </div>
           <div>
-            01<label>SPECIMEN</label>
+            01<span>SPECIMEN</span>
           </div>
         </div>
       </footer>

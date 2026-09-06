@@ -116,7 +116,7 @@ export class SoftBody {
             [0, 4, 5, 7],
             [0, 5, 1, 7],
           ]) {
-            let ids = q.map((i) => v[i]);
+            const ids = q.map((i) => v[i]);
             let vol = this.volume(ids);
             if (vol < 0) {
               [ids[1], ids[2]] = [ids[2], ids[1]];

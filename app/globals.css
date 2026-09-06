@@ -294,7 +294,7 @@ h1 em {
 .spec small {
   font-size: 9px;
 }
-.spec label {
+.spec span {
   display: block;
   margin-top: 8px;
   color: #848c84;
@@ -399,7 +399,7 @@ h1 em {
   .spec > div:last-child {
     display: none;
   }
-  .spec label {
+  .spec span {
     font-size: 7px;
     letter-spacing: 0.5px;
   }

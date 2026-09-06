@@ -6,11 +6,12 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "vinext dev",
-    "build": "vinext build",
-    "start": "wrangler dev --config dist/server/wrangler.json",
+    "dev": "vite --host 127.0.0.1 --port 4399",
+    "build": "vite build",
+    "start": "vite preview --host 127.0.0.1 --port 4399",
     "lint": "oxlint",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "typecheck": "tsc --noEmit --incremental false"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

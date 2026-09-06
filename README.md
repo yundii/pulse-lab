@@ -23,13 +23,16 @@ Needs Node 22.13 or newer.
 
 ```sh
 npm install
-npm run dev -- --port 4399
+npm run dev
 ```
+
+Open http://localhost:4399 after starting the development server.
 
 For a static production build:
 
 ```sh
 npm run build
+npm start
 ```
 
 The site lands in `dist/client/` and runs off any static HTTP server. WebGPU
@@ -78,3 +81,7 @@ adds the beat, the rate response to handling, and the associated controls.
 The upstream repository does not carry a license file, so it reserves all
 rights by default. Treat this as a study built on someone else's work, and ask
 the original author before putting it to any use beyond that.
+
+## Deployment checks
+
+This client-only MVP uses Vite to generate `dist/client/index.html`. GitHub Pages deploys that directory with the `/pulse-lab/` asset base. Run `npm run typecheck` and `npm run lint` before deploying.
